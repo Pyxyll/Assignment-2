@@ -1,0 +1,1 @@
+Base file structure used for Creative Programming Fundimentals using p5.js, created to quickly clone.
