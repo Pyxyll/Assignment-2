@@ -9,7 +9,7 @@ var button;
 function preload() {
   song = loadSound("assets/soundeffect.mp3");
   profile = loadImage("assets/dylan.png");
-  setu = loadImage("assets/logo.png");
+  logo = loadImage("assets/logo.png");
 }
 
 function setup() {
@@ -34,7 +34,7 @@ function draw() {
   drawcircle();
   controlPanelBody();
   image(profile, 1350, 0, 150, 150);
-  image(setu, 0, 0, 150, 150);
+  image(logo, 0, 0, 150, 150);
 }
 
 function drawcircle() {
@@ -61,9 +61,14 @@ function circleControl() {
   if (distance < circleRadius) {
     randomColor();
   } else {
-    circleR = 111;
+    circleR = 10;
     circleG = 255;
     circleB = 233;
+  }
+  if (distance < circleRadius && !song.isPlaying()) {
+    song.play();
+  } else {
+    song.stop();
   }
 }
 
