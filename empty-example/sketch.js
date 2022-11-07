@@ -67,8 +67,6 @@ function circleControl() {
   }
   if (distance < circleRadius && !song.isPlaying()) {
     song.play();
-  } else {
-    song.stop();
   }
 }
 
