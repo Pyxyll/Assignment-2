@@ -5,11 +5,16 @@ var circleRadius = 50;
 var circleR, circleG, circleB;
 var song;
 var button;
+var upArrow, downArrow, leftArrow, rightArrow;
 
 function preload() {
   song = loadSound("assets/soundeffect.mp3");
   profile = loadImage("assets/dylan.png");
   logo = loadImage("assets/logo.png");
+  rightArrowIco = loadImage("assets/right_arrow.png");
+  leftArrowIco = loadImage("assets/left_arrow.png");
+  downArrowIco = loadImage("assets/down_arrow.png");
+  upArrowIco = loadImage("assets/up_arrow.png");
 }
 
 function setup() {
@@ -25,16 +30,16 @@ function setup() {
 function draw() {
   var backgroundValue = backgroundSlider.value();
   background(backgroundValue);
-  circleControl();
+  controlPanelBody();
+  image(profile, 1350, 0, 150, 150);
+  image(logo, 0, 0, 150, 150);
   //bounds detection
   boundBottom();
   boundTop();
   boundRight();
   boundLeft();
   drawcircle();
-  controlPanelBody();
-  image(profile, 1350, 0, 150, 150);
-  image(logo, 0, 0, 150, 150);
+  circleControl();
 }
 
 function drawcircle() {
@@ -47,16 +52,42 @@ function circleControl() {
   var distance = dist(mouseX, mouseY, circleStartPosX, circleStartPosY);
   if (keyIsDown(UP_ARROW)) {
     circleStartPosY -= circleSpeed;
+    upArrow = 100;
+  } else {
+    upArrow = 255;
   }
   if (keyIsDown(DOWN_ARROW)) {
     circleStartPosY += circleSpeed;
+    downArrow = 100;
+  } else {
+    downArrow = 255;
   }
   if (keyIsDown(RIGHT_ARROW)) {
     circleStartPosX += circleSpeed;
+    rightArrow = 100;
+  } else {
+    rightArrow = 255;
   }
   if (keyIsDown(LEFT_ARROW)) {
     circleStartPosX -= circleSpeed;
+    leftArrow = 100;
+  } else {
+    leftArrow = 255;
   }
+
+  fill(upArrow);
+  rect(1325, 300, 60, 60, 10);
+  image(upArrowIco, 1325, 300, 60, 60);
+  fill(downArrow);
+  rect(1325, 370, 60, 60, 10);
+  image(downArrowIco, 1325, 370, 60, 60);
+  fill(leftArrow);
+  rect(1255, 370, 60, 60, 10);
+  image(leftArrowIco, 1255, 370, 60, 60);
+  fill(rightArrow);
+  rect(1395, 370, 60, 60, 10);
+  image(rightArrowIco, 1395, 370, 60, 60);
+
   //
   if (distance < circleRadius) {
     randomColor();
@@ -65,8 +96,11 @@ function circleControl() {
     circleG = 255;
     circleB = 233;
   }
+  //sound control
   if (distance < circleRadius && !song.isPlaying()) {
     song.play();
+  } else if (distance > circleRadius && song.isPlaying()) {
+    song.stop();
   }
 }
 
@@ -121,4 +155,7 @@ function controlPanelBody() {
   fill(28, 37, 65);
   rect(1205, 160, 290, 45, 40);
   rect(1205, 220, 290, 45, 40);
+  fill(255);
+  text("current speed = ", 1300, 490);
+  text(circleSpeed, 1387, 490);
 }
