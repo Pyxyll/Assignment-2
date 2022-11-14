@@ -23,7 +23,7 @@ function setup() {
   //speedy();
   controlPanelLogic();
   button = createButton("Change Speed");
-  button.position(1300, 500);
+  button.position(1270, 500);
   button.mousePressed(speedy);
 }
 
